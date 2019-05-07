@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "443589579589",
+    "firebase_url": "https://dndhelper-69ccb.firebaseio.com",
+    "project_id": "dndhelper-69ccb",
+    "storage_bucket": "dndhelper-69ccb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:443589579589:android:50c3fc2529ce9ad8",
+        "android_client_info": {
+          "package_name": "com.imd.dndhelper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "443589579589-gkceaa8rdes8ke1gbed4m04r8gn2s3bh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADrLExRGoOYlC5t5PuHw9L1RHmFDwXbuY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "443589579589-gkceaa8rdes8ke1gbed4m04r8gn2s3bh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
