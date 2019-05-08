@@ -1,6 +1,6 @@
 package com.imd.dndhelper
 
-class Character(var name: String = "") {
+class Character(var name: String = "", var id: String = "", var pLevel: String = "") {
     var test: String = ""
 
     init {

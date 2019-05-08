@@ -6,6 +6,8 @@ import android.util.Log
 import android.widget.Toast
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_add_character.*
+import java.util.*
+import kotlin.collections.HashMap
 
 class AddCharacter : AppCompatActivity() {
     companion object {
@@ -18,9 +20,12 @@ class AddCharacter : AppCompatActivity() {
 
         addChar_add.setOnClickListener {
             val character = HashMap<String, Any>()
+            val id = UUID.randomUUID().toString()
             character["name"] = addChar_nameInput.text.toString()
-            FirebaseFirestore.getInstance().collection("characters")
-                .add(character)
+            character["pLevel"] = addChar_pLevelInput.text.toString()
+            character["id"] = id
+            FirebaseFirestore.getInstance().collection("characters").document(id)
+                .set(character)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         Log.d(TAG, task.toString())

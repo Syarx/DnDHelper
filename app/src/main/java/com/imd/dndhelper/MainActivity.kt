@@ -1,5 +1,6 @@
 package com.imd.dndhelper
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -52,7 +53,7 @@ class MainActivity : AppCompatActivity() {
                 val char = it.toObject(Character::class.java)
 
                 Log.d("ForEach", char.toString())
-                adapter.add(CharacterItem(char))
+                adapter.add(CharacterItem(this, char))
             }
 
             main_recycler.adapter = adapter
@@ -61,11 +62,18 @@ class MainActivity : AppCompatActivity() {
 
 }
 
-class CharacterItem(var char: Character) : Item<ViewHolder>() {
+class CharacterItem(var context: Context, var char: Character) : Item<ViewHolder>() {
 
     override fun bind(viewHolder: ViewHolder, position: Int) {
         Log.d("TEST", char.name)
-        viewHolder.itemView.characterRow_drawable.text = char.name
+        viewHolder.itemView.characterRow_name.text = char.name
+        viewHolder.itemView.characterRow_pLevel.text = char.pLevel.toString()
+        viewHolder.itemView.setOnClickListener {
+            Toast.makeText(context, "Clicked ${char.name}", Toast.LENGTH_SHORT).show()
+        }
+        viewHolder.itemView.characterRow_deleteBtn.setOnClickListener {
+            FirebaseFirestore.getInstance().collection("characters").document(char.id).delete()
+        }
     }
 
     override fun getLayout(): Int {
