@@ -1,23 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
+                                xmlns:app="http://schemas.android.com/apk/res-auto"
+                                android:layout_width="match_parent"
                                 android:layout_height="80dp"
                                 android:id="@+id/characterRow_swipe">
     <!-- Bottom View Start-->
     <LinearLayout
-            android:background="#66ddff00"
+            android:background="@android:color/white"
             android:id="@+id/bottom_wrapper"
             android:layout_width="160dp"
-            android:weightSum="1"
+            android:weightSum="2"
             android:layout_height="match_parent" android:orientation="horizontal">
         <!--What you want to show-->
         <Button
                 android:text="Delete"
                 android:layout_width="0dp"
-                android:layout_height="match_parent" android:id="@+id/characterRow_deleteBtn" android:layout_weight="1"
+                android:layout_height="match_parent" android:id="@+id/characterRow_deleteBtn"
+                android:layout_weight="1"
                 android:textAlignment="center" android:textStyle="bold"
                 android:textColor="@color/common_google_signin_btn_text_dark_pressed"
-                android:background="@android:color/holo_red_dark"/>
+                android:background="@android:color/holo_red_dark"
+        />
+
+        <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent" android:id="@+id/characterRow_toBattle"
+                android:layout_weight="1"
+                android:textAlignment="center" android:textStyle="bold"
+                android:textColor="@color/common_google_signin_btn_text_dark_pressed"
+                android:background="@color/colorPrimary"
+                android:src="@drawable/battle_off" android:contentDescription="Battle" android:scaleType="centerInside"
+                android:adjustViewBounds="false" android:cropToPadding="false"
+        />
     </LinearLayout>
     <!-- Bottom View End-->
 
@@ -46,14 +60,15 @@
             <TextView
                     android:layout_width="134dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/characterRow_pLevel" app:layout_constraintEnd_toEndOf="parent"
+                    android:id="@+id/characterRow_pLevel"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     android:paddingVertical="16dp"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toEndOf="@+id/characterRow_name"
-                    app:layout_constraintVertical_bias="0.16000003"/>
+                    app:layout_constraintVertical_bias="0.16000003"
+                    app:layout_constraintEnd_toEndOf="parent"/>
         </android.support.constraint.ConstraintLayout>
     </LinearLayout>
     <!-- Surface View End -->

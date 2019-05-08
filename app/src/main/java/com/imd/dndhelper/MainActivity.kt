@@ -34,21 +34,29 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
             }
 
-        getCharacters()
+        val adapter = getCharacters()
 
         main_addCharacter.setOnClickListener {
             startActivity(Intent(this, AddCharacter::class.java))
         }
+        main_startBattle.setOnClickListener {
+            //            for (i in 0 until adapter.itemCount) {
+//                val item = adapter.getItem(i) as CharacterItem
+//                Log.d(TAG, item.readyBattle.toString() )
+//            }
+            Log.d(TAG, CharacterItem.readyCount.toString())
+        }
     }
 
-    private fun getCharacters() {
+    private fun getCharacters(): GroupAdapter<ViewHolder> {
         val ref = FirebaseFirestore.getInstance().collection("characters")
+
+        val adapter = GroupAdapter<ViewHolder>()
         ref.addSnapshotListener { snapshot, e ->
             if (e != null) {
                 Log.w(TAG, "Listen failed.", e)
                 return@addSnapshotListener
             }
-            val adapter = GroupAdapter<ViewHolder>()
             snapshot?.forEach {
                 val char = it.toObject(Character::class.java)
 
@@ -57,26 +65,48 @@ class MainActivity : AppCompatActivity() {
             }
 
             main_recycler.adapter = adapter
+            return@addSnapshotListener
         }
+        return adapter
     }
 
 }
 
 class CharacterItem(var context: Context, var char: Character) : Item<ViewHolder>() {
+    companion object {
+        var readyCount = 0
+    }
 
+    var readyBattle = false
     override fun bind(viewHolder: ViewHolder, position: Int) {
         Log.d("TEST", char.name)
         viewHolder.itemView.characterRow_name.text = char.name
-        viewHolder.itemView.characterRow_pLevel.text = char.pLevel.toString()
-        viewHolder.itemView.setOnClickListener {
-            Toast.makeText(context, "Clicked ${char.name}", Toast.LENGTH_SHORT).show()
-        }
+        viewHolder.itemView.characterRow_pLevel.text = char.pLevel
+//        viewHolder.itemView.setOnClickListener {
+//            Toast.makeText(context, "Clicked ${char.name}", Toast.LENGTH_SHORT).show()
+//        }
         viewHolder.itemView.characterRow_deleteBtn.setOnClickListener {
             FirebaseFirestore.getInstance().collection("characters").document(char.id).delete()
+        }
+        val battleButton = viewHolder.itemView.characterRow_toBattle
+        battleButton.setOnClickListener {
+            if (readyBattle) {
+                readyBattle = false
+                readyCount--
+                battleButton.setImageResource(R.drawable.battle_off)
+            } else {
+                readyBattle = true
+                readyCount++
+                battleButton.setImageResource(R.drawable.battle_on)
+            }
         }
     }
 
     override fun getLayout(): Int {
         return R.layout.character_row
+    }
+
+    fun getBattleState(): Boolean {
+        return readyBattle
     }
 }
