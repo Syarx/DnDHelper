@@ -24,11 +24,13 @@
             android:layout_marginEnd="16dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginBottom="36dp"
             app:layout_constraintBottom_toBottomOf="parent" app:fabCustomSize="64dp" app:fabSize="auto"/>
     <Button
-            android:text="Button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/main_startBattle"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp"/>
+            android:text="Start Battle"
+            android:layout_width="88dp"
+            android:layout_height="59dp" android:id="@+id/main_startBattle"
+            app:layout_constraintBottom_toBottomOf="@+id/main_addCharacter"
+            app:layout_constraintTop_toTopOf="@+id/main_addCharacter"
+            app:layout_constraintVertical_bias="0.52" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="32dp" android:background="@color/design_default_color_primary"
+            android:textColor="@color/common_google_signin_btn_text_dark_pressed"/>
 
 </android.support.constraint.ConstraintLayout>

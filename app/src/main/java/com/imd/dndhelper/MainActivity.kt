@@ -3,6 +3,7 @@ package com.imd.dndhelper
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Toast
@@ -40,11 +41,18 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, AddCharacter::class.java))
         }
         main_startBattle.setOnClickListener {
-            //            for (i in 0 until adapter.itemCount) {
-//                val item = adapter.getItem(i) as CharacterItem
-//                Log.d(TAG, item.readyBattle.toString() )
-//            }
-            Log.d(TAG, CharacterItem.readyCount.toString())
+            if (CharacterItem.readyCount == 2) {
+                val intent = Intent(this, BattleScreen::class.java)
+
+                for (i in 0 until adapter.itemCount) {
+                    val charItem = adapter.getItem(i) as CharacterItem
+                    intent.putExtra("char$i", charItem.char.id)
+                }
+
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "Please select exactly 2 characters", Toast.LENGTH_LONG).show()
+            }
         }
     }
 
@@ -53,6 +61,7 @@ class MainActivity : AppCompatActivity() {
 
         val adapter = GroupAdapter<ViewHolder>()
         ref.addSnapshotListener { snapshot, e ->
+            adapter.clear()
             if (e != null) {
                 Log.w(TAG, "Listen failed.", e)
                 return@addSnapshotListener
@@ -85,8 +94,16 @@ class CharacterItem(var context: Context, var char: Character) : Item<ViewHolder
 //        viewHolder.itemView.setOnClickListener {
 //            Toast.makeText(context, "Clicked ${char.name}", Toast.LENGTH_SHORT).show()
 //        }
+
         viewHolder.itemView.characterRow_deleteBtn.setOnClickListener {
-            FirebaseFirestore.getInstance().collection("characters").document(char.id).delete()
+            AlertDialog.Builder(context)
+                .setTitle("Delete")
+                .setMessage("Are you sure you want to delete?")
+                .setPositiveButton("YES") { dialog, which ->
+                    FirebaseFirestore.getInstance().collection("characters").document(char.id).delete()
+                }
+                .setNegativeButton("NO") { dialog, which ->
+                }.create().show()
         }
         val battleButton = viewHolder.itemView.characterRow_toBattle
         battleButton.setOnClickListener {
@@ -106,7 +123,5 @@ class CharacterItem(var context: Context, var char: Character) : Item<ViewHolder
         return R.layout.character_row
     }
 
-    fun getBattleState(): Boolean {
-        return readyBattle
-    }
+
 }
