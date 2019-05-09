@@ -16,7 +16,7 @@
                 android:text="TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView"
+                android:id="@+id/battle_left_name"
                 android:background="@drawable/bottom_border"
                 android:textSize="20sp"
                 android:textStyle="bold" android:textAlignment="center" android:fontFamily="sans-serif"
