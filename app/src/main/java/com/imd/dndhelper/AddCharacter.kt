@@ -22,8 +22,10 @@ class AddCharacter : AppCompatActivity() {
             val character = HashMap<String, Any>()
             val id = UUID.randomUUID().toString()
             character["name"] = addChar_nameInput.text.toString()
-            character["pLevel"] = addChar_pLevelInput.text.toString()
+            character["p"] = Integer.parseInt(addChar_pInput.text.toString())
+            character["x"] = Integer.parseInt(addChar_xInput.text.toString())
             character["id"] = id
+            character["special"] = addChar_specialInput.isChecked
             FirebaseFirestore.getInstance().collection("characters").document(id)
                 .set(character)
                 .addOnCompleteListener { task ->

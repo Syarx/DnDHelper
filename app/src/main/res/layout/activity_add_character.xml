@@ -30,10 +30,28 @@
             android:layout_height="wrap_content"
             android:inputType="number"
             android:ems="10"
-            android:id="@+id/addChar_pLevelInput"
-            android:hint="Power Level"
+            android:id="@+id/addChar_pInput"
+            android:hint="P"
             android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@+id/addChar_nameInput"
             app:layout_constraintEnd_toEndOf="@+id/addChar_nameInput"
             app:layout_constraintStart_toStartOf="@+id/addChar_nameInput"/>
+    <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/addChar_xInput"
+            android:hint="X"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/addChar_pInput"
+            app:layout_constraintEnd_toEndOf="@+id/addChar_nameInput"
+            app:layout_constraintStart_toStartOf="@+id/addChar_nameInput" app:layout_constraintHorizontal_bias="0.0"/>
+    <Switch
+            android:text="Special"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/addChar_specialInput"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/addChar_xInput" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp" android:textSize="24sp"/>
 </android.support.constraint.ConstraintLayout>

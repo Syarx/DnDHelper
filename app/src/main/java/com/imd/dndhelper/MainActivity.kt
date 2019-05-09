@@ -20,21 +20,32 @@ class MainActivity : AppCompatActivity() {
         const val TAG = "MainActivity"
     }
 
+    private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        FirebaseAuth.getInstance().signInAnonymously()
-            .addOnCompleteListener {
-                if (!it.isSuccessful) {
-                    Toast.makeText(this, "Failed $it", Toast.LENGTH_SHORT).show()
-                    return@addOnCompleteListener
+        auth = FirebaseAuth.getInstance()
+        if (auth.currentUser == null) {
+            auth.signInAnonymously()
+                .addOnCompleteListener {
+                    if (!it.isSuccessful) {
+                        Toast.makeText(this, "Failed $it", Toast.LENGTH_SHORT).show()
+                        return@addOnCompleteListener
+                    }
+                    Toast.makeText(this, "Logged in", Toast.LENGTH_SHORT).show()
+                    updateUI()
                 }
-                Toast.makeText(this, "Logged in", Toast.LENGTH_SHORT).show()
-            }
-            .addOnFailureListener {
-                Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
-            }
+                .addOnFailureListener {
+                    Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+                }
+        } else {
+            updateUI()
+        }
 
+
+    }
+
+    private fun updateUI() {
         val adapter = getCharacters()
 
         main_addCharacter.setOnClickListener {
@@ -67,8 +78,9 @@ class MainActivity : AppCompatActivity() {
                 return@addSnapshotListener
             }
             snapshot?.forEach {
+                Log.d("ForEach", it.toString())
                 val char = it.toObject(Character::class.java)
-
+                char.pcPowerLevel()
                 Log.d("ForEach", char.toString())
                 adapter.add(CharacterItem(this, char))
             }
@@ -90,7 +102,7 @@ class CharacterItem(var context: Context, var char: Character) : Item<ViewHolder
     override fun bind(viewHolder: ViewHolder, position: Int) {
         Log.d("TEST", char.name)
         viewHolder.itemView.characterRow_name.text = char.name
-        viewHolder.itemView.characterRow_pLevel.text = char.pLevel
+        viewHolder.itemView.characterRow_pLevel.text = char.pLevel.toString()
 //        viewHolder.itemView.setOnClickListener {
 //            Toast.makeText(context, "Clicked ${char.name}", Toast.LENGTH_SHORT).show()
 //        }
