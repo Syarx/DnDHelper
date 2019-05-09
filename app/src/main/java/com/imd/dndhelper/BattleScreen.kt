@@ -15,22 +15,26 @@ class BattleScreen : AppCompatActivity() {
         setContentView(R.layout.activity_battle_screen)
         val char1id = intent.getStringExtra("char0")
         val char2id = intent.getStringExtra("char1")
-        var char1: Character? = null
-        var char2: Character? = null
         FirebaseFirestore.getInstance().collection("characters").document(char1id).get()
             .addOnCompleteListener {
-                char1 = it.result?.toObject(Character::class.java)
+                var char1 = it.result?.toObject(Character::class.java)
                 FirebaseFirestore.getInstance().collection("characters").document(char2id).get()
                     .addOnCompleteListener { it2 ->
-                        char2 = it2.result?.toObject(Character::class.java)
+                        var char2 = it2.result?.toObject(Character::class.java)
                         if (char1 != null && char2 != null) {
-                            title = "${char1!!.name} vs ${char2!!.name}"
+                            title = "${char1.name} vs ${char2.name}"
+                            startBatte(char1, char2)
                         } else {
                             Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
+                            finish()
                         }
                     }
             }
 
+
+    }
+
+    private fun startBatte(char1: Character, char2: Character) {
 
     }
 }
