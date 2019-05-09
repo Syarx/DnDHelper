@@ -54,12 +54,14 @@ class MainActivity : AppCompatActivity() {
         main_startBattle.setOnClickListener {
             if (CharacterItem.readyCount == 2) {
                 val intent = Intent(this, BattleScreen::class.java)
-
+                var chars = ArrayList<String>()
                 for (i in 0 until adapter.itemCount) {
                     val charItem = adapter.getItem(i) as CharacterItem
-                    intent.putExtra("char$i", charItem.char.id)
+                    if (charItem.readyBattle) {
+                        chars.add(charItem.char.id)
+                    }
                 }
-
+                intent.putStringArrayListExtra("chars", chars)
                 startActivity(intent)
             } else {
                 Toast.makeText(this, "Please select exactly 2 characters", Toast.LENGTH_LONG).show()

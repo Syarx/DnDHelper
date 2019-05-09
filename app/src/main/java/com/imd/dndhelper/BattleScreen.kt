@@ -13,12 +13,11 @@ class BattleScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_battle_screen)
-        val char1id = intent.getStringExtra("char0")
-        val char2id = intent.getStringExtra("char1")
-        FirebaseFirestore.getInstance().collection("characters").document(char1id).get()
+        val charsIds: ArrayList<String> = intent.getStringArrayListExtra("chars")
+        FirebaseFirestore.getInstance().collection("characters").document(charsIds[0]).get()
             .addOnCompleteListener {
                 var char1 = it.result?.toObject(Character::class.java)
-                FirebaseFirestore.getInstance().collection("characters").document(char2id).get()
+                FirebaseFirestore.getInstance().collection("characters").document(charsIds[1]).get()
                     .addOnCompleteListener { it2 ->
                         var char2 = it2.result?.toObject(Character::class.java)
                         if (char1 != null && char2 != null) {
@@ -29,8 +28,10 @@ class BattleScreen : AppCompatActivity() {
                             finish()
                         }
                     }
-            }
+//            }
 
+
+            }
 
     }
 
