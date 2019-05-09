@@ -37,6 +37,7 @@ class BattleScreen : AppCompatActivity() {
 	}
 
 	private fun startBatte(char1: Character, char2: Character) {
+		char1.pcPowerLevel()
 		battle_left_name.text = char1.name
 		battle_left_pLevel.text = char1.pLevel.toString()
 
