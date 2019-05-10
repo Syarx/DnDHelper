@@ -17,17 +17,25 @@ class BattleScreen : AppCompatActivity() {
 		val charsIds: ArrayList<String> = intent.getStringArrayListExtra("chars")
 		FirebaseFirestore.getInstance().collection("characters").document(charsIds[0]).get()
 			.addOnCompleteListener {
-				val char1 = it.result?.toObject(Character::class.java)
+				var char1 = it.result?.toObject(Character::class.java)
 				FirebaseFirestore.getInstance().collection("characters").document(charsIds[1]).get()
 					.addOnCompleteListener { it2 ->
-						val char2 = it2.result?.toObject(Character::class.java)
+						var char2 = it2.result?.toObject(Character::class.java)
 						if (char1 != null && char2 != null) {
-							title = "${char1.name} vs ${char2.name}"
-							char1.pcPowerLevel()
+
+							title = "${char1!!.name} vs ${char2.name}"
+							char1!!.pcPowerLevel()
 							char2.pcPowerLevel()
-							giveStats(char1, char2)
-							battle_startButton.setOnClickListener {
-								startBattle(char1, char2)
+							giveStats(char1!!, char2)
+							battle_attack1.setOnClickListener {
+								char2 = startBattle(char1!!, char2!!)
+
+								giveStats(char1!!, char2!!)
+							}
+							battle_attack2.setOnClickListener {
+								char1 = startBattle(char2!!, char1!!)
+
+								giveStats(char1!!, char2!!)
 							}
 						} else {
 							Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
@@ -37,12 +45,12 @@ class BattleScreen : AppCompatActivity() {
 			}
 	}
 
-	private fun startBattle(char1: Character, char2: Character) {
+	private fun startBattle(attacker: Character, defender: Character): Character {
 		val mMod: Double = battle_left_mMod.text.toString().toDouble()
 		val sMod = battle_left_sMod.text.toString().toDouble()
-		Toast.makeText(this, "Triforce ${char1.getAttackPower(mMod, sMod)}", Toast.LENGTH_LONG).show()
-		var char2 = char1.Damage(char1.getAttackPower(mMod, sMod), 1, char2)
-		giveStats(char1, char2)
+		Toast.makeText(this, "Triforce ${attacker.getAttackPower(mMod, sMod)}", Toast.LENGTH_LONG).show()
+		var defender = attacker.Damage(attacker.getAttackPower(mMod, sMod), 1, defender)
+		return defender
 	}
 
 	private fun giveStats(char1: Character, char2: Character) {

@@ -330,10 +330,20 @@
             app:layout_constraintBottom_toBottomOf="parent">
 
         <Button
-                android:text="Start Battle"
+                android:text="Attack"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/battle_startButton"
-                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                android:layout_height="wrap_content" android:id="@+id/battle_attack1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/battle_attack2" android:layout_marginEnd="8dp"
+                android:layout_marginTop="24dp"/>
+        <Button
+                android:text="Attack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/battle_attack2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/battle_attack1" android:layout_marginTop="24dp"/>
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>
