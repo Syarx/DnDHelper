@@ -17,7 +17,7 @@ class Character(
 	var physique: Int = 0
 	var speed: Int = 0
 	var magic: Double = 0.0
-
+	var hp = 0.0
 	//sublironei ola ta parapano stats
 	fun pcPowerLevel() {
 		var message: String
@@ -130,11 +130,9 @@ class Character(
 		this.physique = ph
 		this.magic = mg
 		this.speed = sp
+		this.hp = 150000 + ((this.pLevel / 2) * 10)
 	}
 
-	fun getHp(): Double {
-		return 150000 + ((this.pLevel / 2) * 10)
-	}
 
 	fun getAttackPower(MagicMultiplier: Int, SpellMultiplier: Int): Double {    //to attack tou kathe spell
 		return this.pLevel * MagicMultiplier * SpellMultiplier

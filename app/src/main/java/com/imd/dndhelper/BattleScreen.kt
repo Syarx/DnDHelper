@@ -40,6 +40,15 @@ class BattleScreen : AppCompatActivity() {
 		char1.pcPowerLevel()
 		battle_left_name.text = char1.name
 		battle_left_pLevel.text = char1.pLevel.toString()
+		battle_left_health.text = char1.hp.toString()
+		battle_left_mana.text = char1.mana.toString()
+
+		//right
+		char2.pcPowerLevel()
+		battle_right_name.text = char2.name
+		battle_right_pLevel.text = char2.pLevel.toString()
+		battle_right_health.text = char2.hp.toString()
+		battle_right_mana.text = char2.mana.toString()
 
 	}
 }
