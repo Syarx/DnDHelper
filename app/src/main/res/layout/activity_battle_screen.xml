@@ -5,272 +5,335 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".BattleScreen">
-    <LinearLayout
-            android:orientation="vertical"
+    <android.support.constraint.ConstraintLayout
             android:layout_width="0dp"
-            android:layout_height="0dp" android:id="@+id/battle_leftLayout"
-            app:layout_constraintTop_toTopOf="@+id/battle_rightLayout" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/battle_rightLayout">
-        <com.elyeproj.loaderviewlibrary.LoaderTextView
-                android:text=""
-                app:use_gradient="true"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/battle_left_name"
-                android:background="@drawable/bottom_border"
-                android:textSize="20sp"
-                android:textStyle="bold" android:textAlignment="center" android:fontFamily="sans-serif"
-                android:textColor="#000000"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-        />
+            android:layout_height="wrap_content" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/constraintLayout">
+
         <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:weightSum="4"
-                android:background="@drawable/bottom_border"
-        >
-            <TextView
-                    android:text="P. Level"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:layout_weight="1" android:textSize="16sp"/>
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" android:id="@+id/battle_leftLayout"
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/battle_rightLayout">
             <com.elyeproj.loaderviewlibrary.LoaderTextView
                     android:text=""
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/battle_left_pLevel" android:layout_weight="3"
-                    android:textSize="16sp"/>
-        </LinearLayout>
-        <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:weightSum="4"
-                android:background="@drawable/bottom_border"
-        >
-            <TextView
-                    android:text="M. Mod."
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:layout_weight="1" android:textSize="16sp"/>
-            <EditText
-                    android:text=""
-                    android:id="@+id/battle_left_mMod" android:layout_weight="3"
-                    android:layout_height="match_parent"
-                    android:layout_width="wrap_content"
-                    android:textSize="16sp"
-                    android:inputType="numberDecimal"
-                    android:ems="10"
+                    app:use_gradient="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/battle_left_name"
                     android:background="@drawable/bottom_border"
-                    android:layout_marginBottom="5dp"
+                    android:textSize="20sp"
+                    android:textStyle="bold" android:textAlignment="center" android:fontFamily="sans-serif"
+                    android:textColor="#000000"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
             />
-
-        </LinearLayout>
-        <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:weightSum="4"
-                android:background="@drawable/bottom_border"
-        >
-            <TextView
-                    android:text="S. Mod."
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:layout_weight="1" android:textSize="16sp"/>
-            <EditText
-                    android:text=""
-                    android:id="@+id/battle_left_sMod" android:layout_height="match_parent"
-                    android:layout_width="wrap_content"
-                    android:textSize="16sp"
-                    android:inputType="numberDecimal"
-                    android:ems="10"
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="4"
                     android:background="@drawable/bottom_border"
-                    android:layout_marginBottom="5dp"/>
+            >
+                <TextView
+                        android:text="P. Level"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:layout_weight="1" android:textSize="16sp"/>
+                <com.elyeproj.loaderviewlibrary.LoaderTextView
+                        android:text=""
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/battle_left_pLevel"
+                        android:layout_weight="3"
+                        android:textSize="16sp"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="4"
+                    android:background="@drawable/bottom_border"
+            >
+                <TextView
+                        android:text="M. Mod."
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:layout_weight="1" android:textSize="16sp"/>
+                <EditText
+                        android:text="1.0"
+                        android:id="@+id/battle_left_mMod" android:layout_weight="3"
+                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:textSize="16sp"
+                        android:inputType="numberDecimal"
+                        android:ems="10"
+                        android:background="@drawable/bottom_border"
+                        android:layout_marginBottom="5dp"
+                />
+
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="4"
+                    android:background="@drawable/bottom_border"
+            >
+                <TextView
+                        android:text="S. Mod."
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:layout_weight="1" android:textSize="16sp"/>
+                <EditText
+                        android:text="1.0"
+                        android:id="@+id/battle_left_sMod" android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:textSize="16sp"
+                        android:inputType="numberDecimal"
+                        android:ems="10"
+                        android:background="@drawable/bottom_border"
+                        android:layout_marginBottom="5dp"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="4"
+                    android:background="@drawable/bottom_border"
+            >
+                <TextView
+                        android:text="Borg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:layout_weight="1" android:textSize="16sp"/>
+                <com.elyeproj.loaderviewlibrary.LoaderTextView
+                        android:text=""
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/battle_left_borg"
+                        android:layout_weight="3"
+                        android:textSize="16sp"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="4"
+                    android:background="@drawable/bottom_border"
+            >
+                <TextView
+                        android:text="Health"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:layout_weight="1" android:textSize="16sp"/>
+                <com.elyeproj.loaderviewlibrary.LoaderTextView
+                        android:text=""
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/battle_left_health"
+                        android:layout_weight="3"
+                        android:textSize="16sp"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="4"
+                    android:background="@drawable/bottom_border"
+            >
+                <TextView
+                        android:text="Mana"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:layout_weight="1" android:textSize="16sp"/>
+                <com.elyeproj.loaderviewlibrary.LoaderTextView
+                        android:text=""
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/battle_left_mana"
+                        android:layout_weight="3"
+                        android:textSize="16sp"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="4"
+                    android:background="@drawable/bottom_border"
+            >
+                <TextView
+                        android:text="State"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:layout_weight="1" android:textSize="16sp"/>
+                <com.elyeproj.loaderviewlibrary.LoaderTextView
+                        android:text=""
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/battle_left_state"
+                        android:layout_weight="3"
+                        android:textSize="16sp"/>
+            </LinearLayout>
         </LinearLayout>
         <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:weightSum="4"
-                android:background="@drawable/bottom_border"
-        >
-            <TextView
-                    android:text="Borg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:layout_weight="1" android:textSize="16sp"/>
-            <com.elyeproj.loaderviewlibrary.LoaderTextView
-                    android:text=""
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/battle_left_borg" android:layout_weight="3"
-                    android:textSize="16sp"/>
-        </LinearLayout>
-        <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:weightSum="4"
-                android:background="@drawable/bottom_border"
-        >
-            <TextView
-                    android:text="Health"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:layout_weight="1" android:textSize="16sp"/>
-            <com.elyeproj.loaderviewlibrary.LoaderTextView
-                    android:text=""
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/battle_left_health" android:layout_weight="3"
-                    android:textSize="16sp"/>
-        </LinearLayout>
-        <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:weightSum="4"
-                android:background="@drawable/bottom_border"
-        >
-            <TextView
-                    android:text="Mana"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:layout_weight="1" android:textSize="16sp"/>
-            <com.elyeproj.loaderviewlibrary.LoaderTextView
-                    android:text=""
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/battle_left_mana" android:layout_weight="3"
-                    android:textSize="16sp"/>
-        </LinearLayout>
-    </LinearLayout>
-    <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="0dp"
-            android:layout_height="0dp" android:id="@+id/battle_rightLayout"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toEndOf="@+id/battle_leftLayout"
-            android:layout_marginStart="8dp">
-        <com.elyeproj.loaderviewlibrary.LoaderTextView
-                android:text=""
-                app:use_gradient="true"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/battle_right_name"
-                android:background="@drawable/bottom_border"
-                android:textSize="20sp"
-                android:textStyle="bold" android:textAlignment="center" android:fontFamily="sans-serif"
-                android:textColor="#000000"
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" android:id="@+id/battle_rightLayout"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-        />
-        <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:weightSum="4"
-                android:background="@drawable/bottom_border"
-        >
-            <TextView
-                    android:text="P. Level"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:layout_weight="1" android:textSize="16sp"/>
+                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/battle_leftLayout">
             <com.elyeproj.loaderviewlibrary.LoaderTextView
                     android:text=""
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/battle_right_pLevel" android:layout_weight="3"
-                    android:textSize="16sp"/>
-        </LinearLayout>
-        <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:weightSum="4"
-                android:background="@drawable/bottom_border"
-        >
-            <TextView
-                    android:text="M. Mod."
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:layout_weight="1" android:textSize="16sp"/>
-            <EditText
-                    android:id="@+id/battle_right_mMod"
-                    android:layout_height="match_parent"
-                    android:layout_width="wrap_content"
-                    android:textSize="16sp"
-                    android:inputType="numberDecimal"
-                    android:ems="10"
+                    app:use_gradient="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/battle_right_name"
                     android:background="@drawable/bottom_border"
-                    android:layout_marginBottom="5dp"/>
-        </LinearLayout>
-        <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:weightSum="4"
-                android:background="@drawable/bottom_border"
-        >
-            <TextView
-                    android:text="S. Mod."
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:layout_weight="1" android:textSize="16sp"/>
-            <EditText
-                    android:id="@+id/battle_right_sMod"
-                    android:layout_height="match_parent"
-                    android:layout_width="wrap_content"
-                    android:textSize="16sp"
-                    android:inputType="numberDecimal"
-                    android:ems="10"
+                    android:textSize="20sp"
+                    android:textStyle="bold" android:textAlignment="center" android:fontFamily="sans-serif"
+                    android:textColor="#000000"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+            />
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="4"
                     android:background="@drawable/bottom_border"
-                    android:layout_marginBottom="5dp"/>
-        </LinearLayout>
-        <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:weightSum="4"
-                android:background="@drawable/bottom_border"
-        >
-            <TextView
-                    android:text="Borg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:layout_weight="1" android:textSize="16sp"/>
-            <com.elyeproj.loaderviewlibrary.LoaderTextView
-                    android:text=""
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/battle_right_borg" android:layout_weight="3"
-                    android:textSize="16sp"/>
-        </LinearLayout>
-        <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:weightSum="4"
-                android:background="@drawable/bottom_border"
-        >
-            <TextView
-                    android:text="Health"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:layout_weight="1" android:textSize="16sp"/>
-            <com.elyeproj.loaderviewlibrary.LoaderTextView
-                    android:text=""
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/battle_right_health" android:layout_weight="3"
-                    android:textSize="16sp"/>
-        </LinearLayout>
-        <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:weightSum="4"
-                android:background="@drawable/bottom_border"
-        >
-            <TextView
-                    android:text="Mana"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:layout_weight="1" android:textSize="16sp"/>
-            <com.elyeproj.loaderviewlibrary.LoaderTextView
-                    android:text=""
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/battle_right_mana" android:layout_weight="3"
-                    android:textSize="16sp"/>
-        </LinearLayout>
+            >
+                <TextView
+                        android:text="P. Level"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:layout_weight="1" android:textSize="16sp"/>
+                <com.elyeproj.loaderviewlibrary.LoaderTextView
+                        android:text=""
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/battle_right_pLevel"
+                        android:layout_weight="3"
+                        android:textSize="16sp"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="4"
+                    android:background="@drawable/bottom_border"
+            >
+                <TextView
+                        android:text="M. Mod."
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:layout_weight="1" android:textSize="16sp"/>
+                <EditText
+                        android:id="@+id/battle_right_mMod"
+                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:textSize="16sp"
+                        android:inputType="numberDecimal"
+                        android:ems="10"
+                        android:background="@drawable/bottom_border"
+                        android:layout_marginBottom="5dp" android:text="1.0"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="4"
+                    android:background="@drawable/bottom_border"
+            >
+                <TextView
+                        android:text="S. Mod."
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:layout_weight="1" android:textSize="16sp"/>
+                <EditText
+                        android:id="@+id/battle_right_sMod"
+                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:textSize="16sp"
+                        android:inputType="numberDecimal"
+                        android:ems="10"
+                        android:background="@drawable/bottom_border"
+                        android:layout_marginBottom="5dp" android:text="1.0"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="4"
+                    android:background="@drawable/bottom_border"
+            >
+                <TextView
+                        android:text="Borg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:layout_weight="1" android:textSize="16sp"/>
+                <com.elyeproj.loaderviewlibrary.LoaderTextView
+                        android:text=""
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/battle_right_borg"
+                        android:layout_weight="3"
+                        android:textSize="16sp"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="4"
+                    android:background="@drawable/bottom_border"
+            >
+                <TextView
+                        android:text="Health"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:layout_weight="1" android:textSize="16sp"/>
+                <com.elyeproj.loaderviewlibrary.LoaderTextView
+                        android:text=""
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/battle_right_health"
+                        android:layout_weight="3"
+                        android:textSize="16sp"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="4"
+                    android:background="@drawable/bottom_border"
+            >
+                <TextView
+                        android:text="Mana"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:layout_weight="1" android:textSize="16sp"/>
+                <com.elyeproj.loaderviewlibrary.LoaderTextView
+                        android:text=""
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/battle_right_mana"
+                        android:layout_weight="3"
+                        android:textSize="16sp"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="4"
+                    android:background="@drawable/bottom_border"
+            >
+                <TextView
+                        android:text="State"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:layout_weight="1" android:textSize="16sp"/>
+                <com.elyeproj.loaderviewlibrary.LoaderTextView
+                        android:text=""
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/battle_right_state"
+                        android:layout_weight="3"
+                        android:textSize="16sp"/>
+            </LinearLayout>
 
+        </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
 
-    </LinearLayout>
+        <Button
+                android:text="Start Battle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/battle_startButton"
+                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+    </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

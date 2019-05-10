@@ -16,9 +16,11 @@ class Character(
 	var range: Int = 0
 	var physique: Int = 0
 	var speed: Int = 0
-	var magic: Double = 0.0
+	var borg: Double = 0.0
 	var hp = 0.0
+	private var state = State.HEALTHY
 	//sublironei ola ta parapano stats
+
 	fun pcPowerLevel() {
 		var message: String
 		var z = 0.0
@@ -128,42 +130,103 @@ class Character(
 		this.mRegen = mrege
 		this.range = ra
 		this.physique = ph
-		this.magic = mg
+		this.borg = mg
 		this.speed = sp
 		this.hp = 150000 + ((this.pLevel / 2) * 10)
 	}
 
+	fun calculateState(stateByAttacks: State) {
+		val newHp = this.hp - stateByAttacks.getDamage()
+		this.hp = newHp
+		val stateByHp = when {
+			newHp <= 0 -> State.DEAD
+			newHp <= 6000 -> State.COMATOSE
+			newHp <= 78000 -> State.FAINT
+			newHp <= 102000 -> State.DEADLY_INJURED
+			newHp <= 132000 -> State.SERIOUSLY_INJURED
+			newHp <= 138000 -> State.MULTIPLY_INJURED
+			newHp <= 144000 -> State.INJURED
+			else -> State.HEALTHY
+		}
+		if (stateByHp.getDamage() >= stateByAttacks.getDamage()) {
+			this.state = stateByHp
+		} else {
+			this.state = stateByAttacks
+		}
+	}
 
-	fun getAttackPower(MagicMultiplier: Int, SpellMultiplier: Int): Double {    //to attack tou kathe spell
+	fun getAttackPower(MagicMultiplier: Double, SpellMultiplier: Double): Double {    //to attack tou kathe spell
 		return this.pLevel * MagicMultiplier * SpellMultiplier
 	}
 
-	fun Damage(PowerLevel: Int, Triforce: Int, ExtraMultiplier: Int, Borg: Int): IntArray {
-		//to damage stin zoi tou pou tha kani ean xtipisi kapion, to ExtraMultipliers bori na eine polloi multipliers opos black/white h super-effective elements
-		val result = ((Triforce * ExtraMultiplier - Borg) / PowerLevel).toDouble()
-		val damage = intArrayOf(0, 0)                                             //[damage,borg remaining]
+	fun Damage(triforce: Double, extraMultiplier: Int, opponent: Character): Character {   //to damage stin zoi tou pou tha kani ean xtipisi kapion, to ExtraMultipliers bori na eine polloi multipliers opos black/white h super-effective elements
+		val result = ((triforce * extraMultiplier - opponent.borg) / opponent.pLevel)
+		//[damage,borg remaining]
 		if (result < 0) {
-			damage[1] = result.toInt() * PowerLevel
+			opponent.borg = (result.toInt() * opponent.pLevel)
+		} else {
+			opponent.borg = 0.0
 		}
 		if (result >= 1 && result < 2) {
-			damage[0] = 6000
+			opponent.calculateState(State.INJURED)
 		} else if (result >= 2 && result < 3) {
-			damage[0] = 12000
+			opponent.calculateState(State.MULTIPLY_INJURED)
 		} else if (result >= 3 && result < 5) {
-			damage[0] = 18000
+			opponent.calculateState(State.SERIOUSLY_INJURED)
 		} else if (result >= 5 && result < 7) {
-			damage[0] = 48000
+			opponent.calculateState(State.DEADLY_INJURED)
 		} else if (result >= 7 && result < 9) {
-			damage[0] = 72000
+			opponent.calculateState(State.FAINT)
 		} else if (result >= 9 && result < 10) {
-			damage[0] = 144000
+			opponent.calculateState(State.COMATOSE)
 		} else if (result >= 10) {
-			damage[0] = 1000000
+			opponent.calculateState(State.DEAD)
 		}
-		return damage
+		return opponent
 	}
 
+	fun getState(): State {
+		return this.state
+	}
 	override fun toString(): String {
 		return "Character(name='$name $pLevel')"
 	}
+}
+
+enum class State {
+	HEALTHY {
+		override fun getDamage() = 0
+		override fun getText() = "No Effect"
+	},
+	INJURED {
+		override fun getDamage() = 6000
+		override fun getText() = "No Effect"
+	},
+	MULTIPLY_INJURED {
+		override fun getDamage() = 12000
+		override fun getText() = "Can't channel Spells"
+	},
+	SERIOUSLY_INJURED {
+		override fun getDamage() = 18000
+		override fun getText() = "Can't channel Spells. Chance of not being able to act"
+	},
+	DEADLY_INJURED {
+		override fun getDamage() = 48000
+		override fun getText() = "Can't channel Spells. Chance of not being able to act. Get injury every 10 seconds"
+	},
+	FAINT {
+		override fun getDamage() = 72000
+		override fun getText() = "Faint. No Borg"
+	},
+	COMATOSE {
+		override fun getDamage() = 144000
+		override fun getText() = "Death If unattended for some time"
+	},
+	DEAD {
+		override fun getDamage() = 1000000
+		override fun getText() = "Death"
+	};
+
+	abstract fun getDamage(): Int
+	abstract fun getText(): String
 }
