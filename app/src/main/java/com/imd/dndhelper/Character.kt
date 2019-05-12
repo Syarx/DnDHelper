@@ -188,6 +188,7 @@ class Character(
 	fun getState(): State {
 		return this.state
 	}
+
 	override fun toString(): String {
 		return "Character(name='$name $pLevel')"
 	}

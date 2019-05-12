@@ -10,36 +10,36 @@ import java.util.*
 import kotlin.collections.HashMap
 
 class AddCharacter : AppCompatActivity() {
-    companion object {
-        const val TAG = "AddCharacter"
-    }
+	companion object {
+		const val TAG = "AddCharacter"
+	}
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_character)
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
+		setContentView(R.layout.activity_add_character)
 
-        addChar_add.setOnClickListener {
-            val character = HashMap<String, Any>()
-            val id = UUID.randomUUID().toString()
-            character["name"] = addChar_nameInput.text.toString()
-            character["p"] = Integer.parseInt(addChar_pInput.text.toString())
-            character["x"] = Integer.parseInt(addChar_xInput.text.toString())
-            character["id"] = id
-            character["special"] = addChar_specialInput.isChecked
-            FirebaseFirestore.getInstance().collection("characters").document(id)
-                .set(character)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        Log.d(TAG, task.toString())
-                        finish()
-                    } else {
-                        Log.d(TAG, task.toString())
-                        Toast.makeText(this, "Failed adding", Toast.LENGTH_SHORT).show()
-                    }
-                }
-                .addOnFailureListener { e ->
-                    Log.d(TAG, e.message)
-                }
-        }
-    }
+		addChar_add.setOnClickListener {
+			val character = HashMap<String, Any>()
+			val id = UUID.randomUUID().toString()
+			character["name"] = addChar_nameInput.text.toString()
+			character["p"] = Integer.parseInt(addChar_pInput.text.toString())
+			character["x"] = Integer.parseInt(addChar_xInput.text.toString())
+			character["id"] = id
+			character["special"] = addChar_specialInput.isChecked
+			FirebaseFirestore.getInstance().collection("characters").document(id)
+				.set(character)
+				.addOnCompleteListener { task ->
+					if (task.isSuccessful) {
+						Log.d(TAG, task.toString())
+						finish()
+					} else {
+						Log.d(TAG, task.toString())
+						Toast.makeText(this, "Failed adding", Toast.LENGTH_SHORT).show()
+					}
+				}
+				.addOnFailureListener { e ->
+					Log.d(TAG, e.message)
+				}
+		}
+	}
 }
