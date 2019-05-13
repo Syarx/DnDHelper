@@ -7,9 +7,12 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import co.zsmb.materialdrawerkt.builders.drawer
+import co.zsmb.materialdrawerkt.draweritems.badgeable.primaryItem
+import co.zsmb.materialdrawerkt.draweritems.badgeable.secondaryItem
+import co.zsmb.materialdrawerkt.draweritems.divider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.mikepenz.materialdrawer.DrawerBuilder
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
@@ -25,7 +28,14 @@ class MainActivity : AppCompatActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
-		DrawerBuilder().withActivity(this).build()
+		drawer {
+			translucentNavBar = false
+
+			primaryItem("Home") {}
+			divider { }
+			primaryItem("Users") {}
+			secondaryItem("Settings") {}
+		}
 		auth = FirebaseAuth.getInstance()
 		if (auth.currentUser == null) {
 			auth.signInAnonymously()
