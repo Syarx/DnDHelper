@@ -141,6 +141,7 @@ class Character(
 	private fun calculateState(stateByAttacks: State) {
 		val newHp = this.hp - stateByAttacks.getDamage()
 		this.hp = newHp
+		val tempState: State
 		val stateByHp = when {
 			newHp <= 0 -> State.DEAD
 			newHp <= 6000 -> State.COMATOSE
@@ -151,10 +152,13 @@ class Character(
 			newHp <= 144000 -> State.INJURED
 			else -> State.HEALTHY
 		}
-		if (stateByHp.id >= stateByAttacks.id) {
-			this.state = stateByHp
+		tempState = if (stateByHp.id >= stateByAttacks.id) {
+			stateByHp
 		} else {
-			this.state = stateByAttacks
+			stateByAttacks
+		}
+		if (this.state.id <= tempState.id) {
+			this.state = tempState
 		}
 	}
 
@@ -162,9 +166,16 @@ class Character(
 		return this.pLevel * MagicMultiplier * SpellMultiplier
 	}
 
-	fun damage(triforce: Double, extraMultiplier: Int, opponent: Character): Character {   //to damage stin zoi tou pou tha kani ean xtipisi kapion, to ExtraMultipliers bori na eine polloi multipliers opos black/white h super-effective elements
+	fun attack(triforce: Double, extraMultiplier: Double, opponent: Character, BW: Boolean = false): Character {   //to attack stin zoi tou pou tha kani ean xtipisi kapion, to ExtraMultipliers bori na eine polloi multipliers opos black/white h super-effective elements
+		//mana
+		if (BW) {
+			this.mana -= (triforce * extraMultiplier * 1.5)
+		} else {
+			this.mana -= (triforce * extraMultiplier)
+		}
+
 		val result = ((triforce * extraMultiplier) - opponent.borg) / opponent.pLevel
-		//[damage,borg remaining]
+		//[attack,borg remaining]
 		if (result < 0) {
 			opponent.borg = abs(result * opponent.pLevel)
 		} else {
@@ -188,6 +199,32 @@ class Character(
 			opponent.calculateState(State.HEALTHY)
 		}
 		return opponent
+	}
+
+	fun isEffective(triforce: Double, extraMultiplier: Double, opponent: Character, BW: Boolean = false): String {
+		val result = (triforce * extraMultiplier) / opponent.borg
+		//mana
+		if (BW) {
+			this.mana -= (triforce * extraMultiplier * 1.5)
+		} else {
+			this.mana -= (triforce * extraMultiplier)
+		}
+		return when {
+			result <= 2 -> "Not Effective"
+			result > 2 && result <= 3 -> "Sub-Effective"
+			result > 3 && result <= 4 -> "Fast Diminishing effect"
+			result > 4 && result <= 5 -> "Slowly Diminishing effect"
+			else -> "Fully Effective"
+
+		}
+	}
+
+	fun collidingSpells(triforce1: Double, extraMultiplier1: Double, triforce2: Double, extraMultiplier2: Double) {
+		var power1 = triforce1 * extraMultiplier1
+		var power2 = triforce2 * extraMultiplier2
+		if (power1 > power2) {
+
+		}
 	}
 
 	fun resetBorg() {

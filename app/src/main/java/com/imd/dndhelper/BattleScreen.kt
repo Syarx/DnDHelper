@@ -49,6 +49,20 @@ class BattleScreen : AppCompatActivity() {
 								char2!!.resetBorg()
 								giveStats(char1!!, char2!!)
 							}
+							battle_left_forEffect.setOnClickListener {
+								val mMod: Double = battle_left_mMod.text.toString().toDouble()
+								val sMod = battle_left_sMod.text.toString().toDouble()
+								val res = char1!!.isEffective(char1!!.getAttackPower(sMod, mMod), 1.0, char2!!)
+								giveStats(char1!!, char2!!)
+								Toast.makeText(this, res, Toast.LENGTH_LONG).show()
+							}
+							battle_right_forEffect.setOnClickListener {
+								val mMod: Double = battle_right_mMod.text.toString().toDouble()
+								val sMod = battle_right_sMod.text.toString().toDouble()
+								val res = char2!!.isEffective(char2!!.getAttackPower(sMod, mMod), 1.0, char1!!)
+								giveStats(char1!!, char2!!)
+								Toast.makeText(this, res, Toast.LENGTH_LONG).show()
+							}
 						} else {
 							Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
 							finish()
@@ -59,7 +73,7 @@ class BattleScreen : AppCompatActivity() {
 
 	private fun startBattle(attacker: Character, defender: Character, sMod: Double, mMod: Double): Character {
 		Toast.makeText(this, "Triforce ${attacker.getAttackPower(mMod, sMod)}", Toast.LENGTH_LONG).show()
-		return attacker.damage(attacker.getAttackPower(mMod, sMod), 1, defender) //returns defender
+		return attacker.attack(attacker.getAttackPower(mMod, sMod), 1.0, defender) //returns defender
 	}
 
 	private fun giveStats(char1: Character, char2: Character) {
