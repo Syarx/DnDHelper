@@ -1,6 +1,7 @@
 package com.imd.dndhelper
 
 import android.util.Log
+import kotlin.math.abs
 
 
 class Character(
@@ -148,7 +149,7 @@ class Character(
 			newHp <= 144000 -> State.INJURED
 			else -> State.HEALTHY
 		}
-		if (stateByHp.getDamage() >= stateByAttacks.getDamage()) {
+		if (stateByHp.id >= stateByAttacks.id) {
 			this.state = stateByHp
 		} else {
 			this.state = stateByAttacks
@@ -159,11 +160,11 @@ class Character(
 		return this.pLevel * MagicMultiplier * SpellMultiplier
 	}
 
-	fun Damage(triforce: Double, extraMultiplier: Int, opponent: Character): Character {   //to damage stin zoi tou pou tha kani ean xtipisi kapion, to ExtraMultipliers bori na eine polloi multipliers opos black/white h super-effective elements
-		val result = ((triforce * extraMultiplier - opponent.borg) / opponent.pLevel)
+	fun damage(triforce: Double, extraMultiplier: Int, opponent: Character): Character {   //to damage stin zoi tou pou tha kani ean xtipisi kapion, to ExtraMultipliers bori na eine polloi multipliers opos black/white h super-effective elements
+		val result = ((triforce * extraMultiplier) - opponent.borg) / opponent.pLevel
 		//[damage,borg remaining]
 		if (result < 0) {
-			opponent.borg = (result.toInt() * opponent.pLevel)
+			opponent.borg = abs(result * opponent.pLevel)
 		} else {
 			opponent.borg = 0.0
 		}
@@ -181,6 +182,8 @@ class Character(
 			opponent.calculateState(State.COMATOSE)
 		} else if (result >= 10) {
 			opponent.calculateState(State.DEAD)
+		} else {
+			opponent.calculateState(State.HEALTHY)
 		}
 		return opponent
 	}
@@ -196,38 +199,47 @@ class Character(
 
 enum class State {
 	HEALTHY {
+		override val id = 0
 		override fun getDamage() = 0
 		override fun getText() = "No Effect"
 	},
 	INJURED {
+		override val id = 1
 		override fun getDamage() = 6000
 		override fun getText() = "No Effect"
 	},
 	MULTIPLY_INJURED {
+		override val id = 2
 		override fun getDamage() = 12000
 		override fun getText() = "Can't channel Spells"
 	},
 	SERIOUSLY_INJURED {
+		override val id = 3
 		override fun getDamage() = 18000
 		override fun getText() = "Can't channel Spells. Chance of not being able to act"
 	},
 	DEADLY_INJURED {
+		override val id = 4
 		override fun getDamage() = 48000
 		override fun getText() = "Can't channel Spells. Chance of not being able to act. Get injury every 10 seconds"
 	},
 	FAINT {
+		override val id = 5
 		override fun getDamage() = 72000
 		override fun getText() = "Faint. No Borg"
 	},
 	COMATOSE {
+		override val id = 6
 		override fun getDamage() = 144000
 		override fun getText() = "Death If unattended for some time"
 	},
 	DEAD {
+		override val id = 7
 		override fun getDamage() = 1000000
 		override fun getText() = "Death"
 	};
 
+	abstract val id: Int
 	abstract fun getDamage(): Int
 	abstract fun getText(): String
 }
