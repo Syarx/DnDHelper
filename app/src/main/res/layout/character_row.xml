@@ -41,7 +41,7 @@
             android:background="@drawable/bottom_border"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -69,7 +69,7 @@
                     app:layout_constraintStart_toEndOf="@+id/characterRow_name"
                     app:layout_constraintVertical_bias="0.16000003"
                     app:layout_constraintEnd_toEndOf="parent"/>
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
     <!-- Surface View End -->
 </com.daimajia.swipe.SwipeLayout>

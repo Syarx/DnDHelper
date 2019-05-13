@@ -3,12 +3,13 @@ package com.imd.dndhelper
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.mikepenz.materialdrawer.DrawerBuilder
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
@@ -24,6 +25,7 @@ class MainActivity : AppCompatActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
+		DrawerBuilder().withActivity(this).build()
 		auth = FirebaseAuth.getInstance()
 		if (auth.currentUser == null) {
 			auth.signInAnonymously()
