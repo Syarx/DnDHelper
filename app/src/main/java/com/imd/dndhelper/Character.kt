@@ -19,6 +19,7 @@ class Character(
 	var speed: Int = 0
 	var borg: Double = 0.0
 	var hp = 0.0
+	var maxBorg: Double = 0.0
 	private var state = State.HEALTHY
 	//sublironei ola ta parapano stats
 
@@ -132,11 +133,12 @@ class Character(
 		this.range = ra
 		this.physique = ph
 		this.borg = mg
+		this.maxBorg = mg
 		this.speed = sp
 		this.hp = 150000 + ((this.pLevel / 2) * 10)
 	}
 
-	fun calculateState(stateByAttacks: State) {
+	private fun calculateState(stateByAttacks: State) {
 		val newHp = this.hp - stateByAttacks.getDamage()
 		this.hp = newHp
 		val stateByHp = when {
@@ -186,6 +188,10 @@ class Character(
 			opponent.calculateState(State.HEALTHY)
 		}
 		return opponent
+	}
+
+	fun resetBorg() {
+		this.borg = this.maxBorg
 	}
 
 	fun getState(): State {

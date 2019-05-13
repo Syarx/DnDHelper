@@ -333,17 +333,32 @@
                 android:text="Attack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/battle_attack1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/battle_attack2" android:layout_marginEnd="8dp"
-                android:layout_marginTop="24dp"/>
+                app:layout_constraintStart_toStartOf="@+id/battle_left_resetBorg"
+                app:layout_constraintTop_toBottomOf="@+id/battle_left_resetBorg"
+                app:layout_constraintEnd_toEndOf="@+id/battle_left_resetBorg" android:layout_marginTop="16dp"/>
         <Button
                 android:text="Attack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/battle_attack2"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/battle_attack1" android:layout_marginTop="24dp"/>
+                app:layout_constraintTop_toBottomOf="@+id/battle_right_resetBorg"
+                app:layout_constraintEnd_toEndOf="@+id/battle_right_resetBorg"
+                app:layout_constraintStart_toStartOf="@+id/battle_right_resetBorg" android:layout_marginTop="16dp"/>
+        <Button
+                android:text="Reset Borg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/battle_left_resetBorg" android:layout_marginTop="32dp"
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="16dp" app:layout_constraintEnd_toStartOf="@+id/battle_right_resetBorg"
+        />
+        <Button
+                android:text="Reset Borg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/battle_right_resetBorg" app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="32dp" app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/battle_left_resetBorg"/>
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

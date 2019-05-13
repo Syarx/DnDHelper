@@ -41,6 +41,14 @@ class BattleScreen : AppCompatActivity() {
 
 								giveStats(char1!!, char2!!)
 							}
+							battle_left_resetBorg.setOnClickListener {
+								char1!!.resetBorg()
+								giveStats(char1!!, char2!!)
+							}
+							battle_right_resetBorg.setOnClickListener {
+								char2!!.resetBorg()
+								giveStats(char1!!, char2!!)
+							}
 						} else {
 							Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
 							finish()
