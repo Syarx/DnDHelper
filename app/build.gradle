@@ -44,6 +44,14 @@ dependencies {
     implementation "com.daimajia.swipelayout:library:1.2.0@aar"
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
     implementation 'com.elyeproj.libraries:loaderviewlibrary:1.5.0'
+
     implementation 'co.zsmb:materialdrawer-kt:2.0.1'
+
+//required support lib modules
+    implementation "androidx.appcompat:appcompat:${versions.androidX}"
+    implementation "androidx.recyclerview:recyclerview:${versions.androidX}"
+    implementation "androidx.annotation:annotation:${versions.androidX}"
+    implementation "com.google.android.material:material:${versions.androidX}"
+    implementation "androidx.constraintlayout:constraintlayout:${versions.constraintLayout}"
 }
 apply plugin: 'com.google.gms.google-services'

@@ -5,12 +5,17 @@
 
     <application
             android:allowBackup="true"
-            android:label="@string/app_name"
             android:icon="@mipmap/eterniaicon_launcher"
+            android:label="@string/app_name"
             android:roundIcon="@mipmap/eterniaicon_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".SavedBattles">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".MainActivity"/>
+        </activity>
         <activity android:name=".BattleScreen">
         </activity>
         <activity android:name=".AddCharacter">
@@ -18,10 +23,11 @@
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value=".MainActivity"/>
         </activity>
-        <activity android:name=".MainActivity">
+        <activity
+                android:name=".MainActivity"
+                android:theme="@style/NoBarTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>

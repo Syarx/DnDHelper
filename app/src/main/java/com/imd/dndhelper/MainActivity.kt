@@ -9,8 +9,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import co.zsmb.materialdrawerkt.builders.drawer
 import co.zsmb.materialdrawerkt.draweritems.badgeable.primaryItem
-import co.zsmb.materialdrawerkt.draweritems.badgeable.secondaryItem
-import co.zsmb.materialdrawerkt.draweritems.divider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.xwray.groupie.GroupAdapter
@@ -28,13 +26,24 @@ class MainActivity : AppCompatActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
+		val toolbarTest: androidx.appcompat.widget.Toolbar = findViewById(R.id.toolbar)
+		setSupportActionBar(toolbarTest)
+		val context = this
 		drawer {
+			toolbar = toolbarTest
 			translucentNavBar = false
+			translucentStatusBar = false
+			actionBarDrawerToggleEnabled = false
+			rootView = findViewById(R.id.drawer_layout)
+			displayBelowStatusBar = true
 
-			primaryItem("Home") {}
-			divider { }
-			primaryItem("Users") {}
-			secondaryItem("Settings") {}
+			primaryItem("Saved Battles") {
+				icon = R.drawable.sword
+				onClick { _ ->
+					startActivity(Intent(context, SavedBattles::class.java))
+					false
+				}
+			}
 		}
 		auth = FirebaseAuth.getInstance()
 		if (auth.currentUser == null) {
@@ -53,8 +62,6 @@ class MainActivity : AppCompatActivity() {
 		} else {
 			updateUI()
 		}
-
-
 	}
 
 	private fun updateUI() {
