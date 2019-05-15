@@ -26,11 +26,12 @@ class MainActivity : AppCompatActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
-		val toolbarTest: androidx.appcompat.widget.Toolbar = findViewById(R.id.toolbar)
-		setSupportActionBar(toolbarTest)
+		val _toolbar: androidx.appcompat.widget.Toolbar = findViewById(R.id.toolbar)
+
+		setSupportActionBar(_toolbar)
 		val context = this
-		drawer {
-			toolbar = toolbarTest
+		val drawer = drawer {
+			toolbar = _toolbar
 			translucentNavBar = false
 			translucentStatusBar = false
 			actionBarDrawerToggleEnabled = false
@@ -45,6 +46,10 @@ class MainActivity : AppCompatActivity() {
 				}
 			}
 		}
+		_toolbar.setNavigationOnClickListener {
+			drawer.openDrawer()
+		}
+
 		auth = FirebaseAuth.getInstance()
 		if (auth.currentUser == null) {
 			auth.signInAnonymously()

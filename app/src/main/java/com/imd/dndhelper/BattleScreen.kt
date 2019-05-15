@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_battle_screen.*
 import java.util.*
-import kotlin.collections.ArrayList
 
 class BattleScreen : AppCompatActivity() {
 	companion object {
@@ -16,69 +15,93 @@ class BattleScreen : AppCompatActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_battle_screen)
-		val charsIds: ArrayList<String> = intent.getStringArrayListExtra("chars")
-		FirebaseFirestore.getInstance().collection("characters").document(charsIds[0]).get()
-			.addOnCompleteListener {
-				var char1 = it.result?.toObject(Character::class.java)
-				FirebaseFirestore.getInstance().collection("characters").document(charsIds[1]).get()
-					.addOnCompleteListener { it2 ->
-						var char2 = it2.result?.toObject(Character::class.java)
-						if (char1 != null && char2 != null) {
-							title = "${char1!!.name} vs ${char2.name}"
-							val battleName = title
-							char1!!.pcPowerLevel()
-							char2.pcPowerLevel()
-							giveStats(char1!!, char2)
-							battle_attack1.setOnClickListener {
-								val mMod: Double = battle_left_mMod.text.toString().toDouble()
-								val sMod = battle_left_sMod.text.toString().toDouble()
-								char2 = startBattle(char1!!, char2!!, sMod, mMod)
 
-								giveStats(char1!!, char2!!)
-							}
-							battle_attack2.setOnClickListener {
-								val mMod: Double = battle_right_mMod.text.toString().toDouble()
-								val sMod = battle_right_sMod.text.toString().toDouble()
-								char1 = startBattle(char2!!, char1!!, sMod, mMod)
-
-								giveStats(char1!!, char2!!)
-							}
-							battle_left_resetBorg.setOnClickListener {
-								char1!!.resetBorg()
-								giveStats(char1!!, char2!!)
-							}
-							battle_right_resetBorg.setOnClickListener {
-								char2!!.resetBorg()
-								giveStats(char1!!, char2!!)
-							}
-							battle_left_forEffect.setOnClickListener {
-								val mMod: Double = battle_left_mMod.text.toString().toDouble()
-								val sMod = battle_left_sMod.text.toString().toDouble()
-								val res = char1!!.isEffective(char1!!.getAttackPower(sMod, mMod), 1.0, char2!!)
-								giveStats(char1!!, char2!!)
-								Toast.makeText(this, res, Toast.LENGTH_LONG).show()
-							}
-							battle_right_forEffect.setOnClickListener {
-								val mMod: Double = battle_right_mMod.text.toString().toDouble()
-								val sMod = battle_right_sMod.text.toString().toDouble()
-								val res = char2!!.isEffective(char2!!.getAttackPower(sMod, mMod), 1.0, char1!!)
-								giveStats(char1!!, char2!!)
-								Toast.makeText(this, res, Toast.LENGTH_LONG).show()
-							}
-							battle_saveButton.setOnClickListener {
-								saveBattle(char1!!, char2!!)
-							}
-						} else {
-							Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
-							finish()
+		if (intent.getStringExtra("From") == "SavedBattles") {
+			val battleID = intent.getStringExtra("battleID")
+			FirebaseFirestore.getInstance().collection("saved_battles").document(battleID).get()
+				.addOnCompleteListener {
+					if (it.isSuccessful) {
+						val battle = it.result?.toObject(Battle::class.java)
+						if (battle != null) {
+							title = "${battle.char1?.name} vs ${battle.char2?.name}"
+							updateUI(this, battle.char1!!, battle.char2!!, battleID)
 						}
 					}
-			}
+				}
+		} else {
+			val charsIds: ArrayList<String> = intent.getStringArrayListExtra("chars")
+			FirebaseFirestore.getInstance().collection("characters").document(charsIds[0]).get()
+				.addOnCompleteListener {
+					val char1 = it.result?.toObject(Character::class.java)
+					FirebaseFirestore.getInstance().collection("characters").document(charsIds[1]).get()
+						.addOnCompleteListener { it2 ->
+							val char2 = it2.result?.toObject(Character::class.java)
+							if (char1 != null && char2 != null) {
+								title = "${char1.name} vs ${char2.name}"
+								char1.pcPowerLevel()
+								char2.pcPowerLevel()
+								updateUI(this, char1, char2)
+							} else {
+								Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
+								finish()
+							}
+						}
+				}
+		}
+
 	}
 
-	private fun saveBattle(char1: Character, char2: Character) {
-		val id = UUID.randomUUID().toString()
-		FirebaseFirestore.getInstance().collection("saved_battles").document(id).set(Battle(char1, char2, id))
+	private fun updateUI(battleScreen: BattleScreen, _char1: Character, _char2: Character, battleID: String = "") {
+		var char1 = _char1
+		var char2 = _char2
+		giveStats(char1, char2)
+		battle_attack1.setOnClickListener {
+			val mMod: Double = battle_left_mMod.text.toString().toDouble()
+			val sMod = battle_left_sMod.text.toString().toDouble()
+			char2 = startBattle(char1, char2, sMod, mMod)
+
+			giveStats(char1, char2)
+		}
+		battle_attack2.setOnClickListener {
+			val mMod: Double = battle_right_mMod.text.toString().toDouble()
+			val sMod = battle_right_sMod.text.toString().toDouble()
+			char1 = startBattle(char2, char1, sMod, mMod)
+
+			giveStats(char1, char2)
+		}
+		battle_left_resetBorg.setOnClickListener {
+			char1.resetBorg()
+			giveStats(char1, char2)
+		}
+		battle_right_resetBorg.setOnClickListener {
+			char2.resetBorg()
+			giveStats(char1, char2)
+		}
+		battle_left_forEffect.setOnClickListener {
+			val mMod: Double = battle_left_mMod.text.toString().toDouble()
+			val sMod = battle_left_sMod.text.toString().toDouble()
+			val res = char1.isEffective(char1.getAttackPower(sMod, mMod), 1.0, char2)
+			giveStats(char1, char2)
+			Toast.makeText(this, res, Toast.LENGTH_LONG).show()
+		}
+		battle_right_forEffect.setOnClickListener {
+			val mMod: Double = battle_right_mMod.text.toString().toDouble()
+			val sMod = battle_right_sMod.text.toString().toDouble()
+			val res = char2.isEffective(char2.getAttackPower(sMod, mMod), 1.0, char1)
+			giveStats(char1, char2)
+			Toast.makeText(this, res, Toast.LENGTH_LONG).show()
+		}
+		battle_saveButton.setOnClickListener {
+			saveBattle(char1, char2, battleID)
+		}
+	}
+
+	private fun saveBattle(char1: Character, char2: Character, id: String) {
+		var uuid = UUID.randomUUID().toString()
+		if (id != "") {
+			uuid = id
+		}
+		FirebaseFirestore.getInstance().collection("saved_battles").document(uuid).set(Battle(char1, char2, uuid))
 	}
 
 	private fun startBattle(attacker: Character, defender: Character, sMod: Double, mMod: Double): Character {
