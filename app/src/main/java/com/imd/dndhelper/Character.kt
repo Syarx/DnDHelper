@@ -5,7 +5,8 @@ import java.io.Serializable
 import kotlin.math.abs
 
 
-class Character(var name: String = "", var id: String = "", var p: Double = 50.0, var x: Double = 50.0, var special: Boolean = false) : Serializable{
+class Character(var name: String = "", var id: String = "", var p: Double = 50.0, var x: Double = 50.0, var special: Boolean = false) :
+	Serializable {
 	var pLevel: Double = 50.0
 	var mana: Double = 0.0
 	var mRegen: Double = 0.0
@@ -161,6 +162,35 @@ class Character(var name: String = "", var id: String = "", var p: Double = 50.0
 		return this.pLevel * MagicMultiplier * SpellMultiplier
 	}
 
+	//attack from spells
+	fun attack(result: Int, opponent: Character, BW: Boolean = false): Character {
+		val result = (result - opponent.borg) / opponent.pLevel
+		//[attack,borg remaining]
+		if (result < 0) {
+			opponent.borg = abs(result * opponent.pLevel)
+		} else {
+			opponent.borg = 0.0
+		}
+		if (result >= 1 && result < 2) {
+			opponent.calculateState(State.INJURED)
+		} else if (result >= 2 && result < 3) {
+			opponent.calculateState(State.MULTIPLY_INJURED)
+		} else if (result >= 3 && result < 5) {
+			opponent.calculateState(State.SERIOUSLY_INJURED)
+		} else if (result >= 5 && result < 7) {
+			opponent.calculateState(State.DEADLY_INJURED)
+		} else if (result >= 7 && result < 9) {
+			opponent.calculateState(State.FAINT)
+		} else if (result >= 9 && result < 10) {
+			opponent.calculateState(State.COMATOSE)
+		} else if (result >= 10) {
+			opponent.calculateState(State.DEAD)
+		} else {
+			opponent.calculateState(State.HEALTHY)
+		}
+		return opponent
+	}
+
 	fun attack(triforce: Double, extraMultiplier: Double, opponent: Character, BW: Boolean = false): Character {   //to attack stin zoi tou pou tha kani ean xtipisi kapion, to ExtraMultipliers bori na eine polloi multipliers opos black/white h super-effective elements
 		//mana
 		if (BW) {
@@ -214,14 +244,6 @@ class Character(var name: String = "", var id: String = "", var p: Double = 50.0
 		}
 	}
 
-	fun collidingSpells(triforce1: Double, extraMultiplier1: Double, triforce2: Double, extraMultiplier2: Double) {
-		var power1 = triforce1 * extraMultiplier1
-		var power2 = triforce2 * extraMultiplier2
-		if (power1 > power2) {
-
-		}
-	}
-
 	fun resetBorg() {
 		this.borg = this.maxBorg
 	}
@@ -230,10 +252,52 @@ class Character(var name: String = "", var id: String = "", var p: Double = 50.0
 		return this.state
 	}
 
+
 	override fun toString(): String {
 		return "Character(name='$name', id='$id', p=$p, x=$x, special=$special, pLevel=$pLevel, mana=$mana, mRegen=$mRegen, range=$range, physique=$physique, speed=$speed, borg=$borg, hp=$hp, maxBorg=$maxBorg, state=$state)"
 	}
 
+	companion object {
+		fun simultaneousAttack(triforce1: Double, extraMultiplier1: Double, triforce2: Double, extraMultiplier2: Double): HashMap<String, Any> {
+			var result = 0.0
+			var winner = 0
+			val triforce1 = triforce1 * extraMultiplier1
+			val triforce2 = triforce2 * extraMultiplier2
+			if (triforce1 > triforce2) {
+				result = triforce1 / triforce2 - 1
+				result = round(result, 1)
+				if (result >= 0 && result < 1) {
+					result = triforce1 - triforce2
+				} else if (result >= 1 && result < 2) {
+					result = triforce1 - (triforce2 - triforce2 * (result - 1))
+				} else if (result >= 2) {
+					result = triforce1
+				}
+				winner = 1
+			}
+			if (triforce2 > triforce1) {
+				result = triforce2 / triforce1 - 1
+				result = round(result, 1)
+				if (result >= 0 && result < 1) {
+					result = triforce2 - triforce1
+				} else if (result >= 1 && result < 2) {
+					result = triforce2 - (triforce1 - triforce1 * (result - 1))
+				} else if (result >= 2) {
+					result = triforce2
+				}
+				winner = 2
+			}
+			val res = HashMap<String, Any>()
+			res["Power"] = result.toInt()
+			res["Winner"] = winner
+			return res
+		}
+
+		private fun round(value: Double, precision: Int): Double {
+			val scale = Math.pow(10.0, precision.toDouble()).toInt()
+			return Math.round(value * scale).toDouble() / scale
+		}
+	}
 
 }
 

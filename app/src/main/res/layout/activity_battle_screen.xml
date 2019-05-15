@@ -382,8 +382,17 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/battle_saveButton"
                 app:layout_constraintStart_toStartOf="@+id/battle_left_forEffect"
-                app:layout_constraintEnd_toEndOf="@+id/battle_right_forEffect" android:layout_marginTop="36dp"
+                app:layout_constraintEnd_toEndOf="@+id/battle_right_forEffect" android:layout_marginTop="108dp"
                 app:layout_constraintTop_toBottomOf="@+id/battle_right_forEffect"
-                app:layout_constraintHorizontal_bias="0.493"/>
+        />
+        <Button
+                android:text="Collide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/battle_collide" app:layout_constraintStart_toStartOf="@+id/battle_left_forEffect"
+                android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="@+id/battle_right_forEffect"
+                android:layout_marginEnd="8dp" android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/battle_left_forEffect" android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/battle_saveButton"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

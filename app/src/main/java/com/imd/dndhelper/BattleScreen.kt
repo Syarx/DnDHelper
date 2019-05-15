@@ -94,6 +94,25 @@ class BattleScreen : AppCompatActivity() {
 		battle_saveButton.setOnClickListener {
 			saveBattle(char1, char2, battleID)
 		}
+		battle_collide.setOnClickListener {
+			val mModLeft: Double = battle_left_mMod.text.toString().toDouble()
+			val sModLeft = battle_left_sMod.text.toString().toDouble()
+			val mModRight: Double = battle_right_mMod.text.toString().toDouble()
+			val sModRight = battle_right_sMod.text.toString().toDouble()
+			val result = Character.simultaneousAttack(
+				char1.getAttackPower(mModLeft, sModLeft),
+				1.0,
+				char2.getAttackPower(mModRight, sModRight),
+				1.0
+			)
+			if (result["Winner"] == 1) {
+				char2 = char1.attack(result["Power"] as Int, char2)
+				giveStats(char1, char2)
+			} else {
+				char1 = char1.attack(result["Power"] as Int, char1)
+				giveStats(char1, char2)
+			}
+		}
 	}
 
 	private fun saveBattle(char1: Character, char2: Character, id: String) {

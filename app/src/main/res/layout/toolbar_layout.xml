@@ -4,4 +4,5 @@
         xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_height="?attr/actionBarSize"
         android:layout_width="match_parent" android:id="@+id/toolbar"
         android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar"
-        android:background="@color/colorPrimary" app:navigationIcon="@android:drawable/ic_menu_sort_by_size"/>
+        android:background="@color/colorPrimary" app:navigationIcon="@android:drawable/ic_menu_sort_by_size"
+        app:titleTextColor="@color/common_google_signin_btn_text_dark_default"/>
