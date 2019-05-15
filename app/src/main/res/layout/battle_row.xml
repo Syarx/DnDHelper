@@ -7,7 +7,6 @@
     <!-- Bottom View Start-->
     <LinearLayout
             android:background="@android:color/white"
-            android:id="@+id/battle_bottom_wrapper"
             android:layout_width="160dp"
             android:weightSum="2"
             android:layout_height="match_parent" android:orientation="horizontal">
@@ -55,20 +54,8 @@
                     android:paddingVertical="16dp"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:layout_marginEnd="8dp" app:layout_constraintEnd_toStartOf="@+id/characterRow_pLevel"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
-            <TextView
-                    android:layout_width="134dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/characterRow_pLevel"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:paddingVertical="16dp"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@+id/battleRow_name"
-                    app:layout_constraintVertical_bias="0.16000003"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                    app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
     <!-- Surface View End -->

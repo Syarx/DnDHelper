@@ -5,6 +5,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_battle_screen.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 class BattleScreen : AppCompatActivity() {
 	companion object {
@@ -22,8 +24,8 @@ class BattleScreen : AppCompatActivity() {
 					.addOnCompleteListener { it2 ->
 						var char2 = it2.result?.toObject(Character::class.java)
 						if (char1 != null && char2 != null) {
-
 							title = "${char1!!.name} vs ${char2.name}"
+							val battleName = title
 							char1!!.pcPowerLevel()
 							char2.pcPowerLevel()
 							giveStats(char1!!, char2)
@@ -63,12 +65,20 @@ class BattleScreen : AppCompatActivity() {
 								giveStats(char1!!, char2!!)
 								Toast.makeText(this, res, Toast.LENGTH_LONG).show()
 							}
+							battle_saveButton.setOnClickListener {
+								saveBattle(char1!!, char2!!)
+							}
 						} else {
 							Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
 							finish()
 						}
 					}
 			}
+	}
+
+	private fun saveBattle(char1: Character, char2: Character) {
+		val id = UUID.randomUUID().toString()
+		FirebaseFirestore.getInstance().collection("saved_battles").document(id).set(Battle(char1, char2, id))
 	}
 
 	private fun startBattle(attacker: Character, defender: Character, sMod: Double, mMod: Double): Character {

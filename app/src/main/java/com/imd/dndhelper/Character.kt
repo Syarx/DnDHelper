@@ -1,16 +1,11 @@
 package com.imd.dndhelper
 
 import android.util.Log
+import java.io.Serializable
 import kotlin.math.abs
 
 
-class Character(
-	var name: String = "",
-	var id: String = "",
-	var p: Double = 50.0,
-	var x: Double = 50.0,
-	var special: Boolean = false
-) {
+class Character(var name: String = "", var id: String = "", var p: Double = 50.0, var x: Double = 50.0, var special: Boolean = false) : Serializable{
 	var pLevel: Double = 50.0
 	var mana: Double = 0.0
 	var mRegen: Double = 0.0
@@ -236,8 +231,10 @@ class Character(
 	}
 
 	override fun toString(): String {
-		return "Character(name='$name $pLevel')"
+		return "Character(name='$name', id='$id', p=$p, x=$x, special=$special, pLevel=$pLevel, mana=$mana, mRegen=$mRegen, range=$range, physique=$physique, speed=$speed, borg=$borg, hp=$hp, maxBorg=$maxBorg, state=$state)"
 	}
+
+
 }
 
 enum class State {

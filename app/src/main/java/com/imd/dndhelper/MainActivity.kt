@@ -122,13 +122,13 @@ class CharacterItem(var context: Context, var char: Character) : Item<ViewHolder
 	var readyBattle = false
 	override fun bind(viewHolder: ViewHolder, position: Int) {
 		Log.d("TEST", char.name)
-		viewHolder.itemView.characterRow_name.text = char.name
+		viewHolder.itemView.battleRow_name.text = char.name
 		viewHolder.itemView.characterRow_pLevel.text = char.pLevel.toString()
 //        viewHolder.itemView.setOnClickListener {
 //            Toast.makeText(context, "Clicked ${char.name}", Toast.LENGTH_SHORT).show()
 //        }
 
-		viewHolder.itemView.characterRow_deleteBtn.setOnClickListener {
+		viewHolder.itemView.battleRow_deleteBtn.setOnClickListener {
 			AlertDialog.Builder(context)
 				.setTitle("Delete")
 				.setMessage("Are you sure you want to delete?")
@@ -138,7 +138,7 @@ class CharacterItem(var context: Context, var char: Character) : Item<ViewHolder
 				.setNegativeButton("NO") { dialog, which ->
 				}.create().show()
 		}
-		val battleButton = viewHolder.itemView.characterRow_toBattle
+		val battleButton = viewHolder.itemView.battleRow_toBattle
 		battleButton.setOnClickListener {
 			if (readyBattle) {
 				readyBattle = false
