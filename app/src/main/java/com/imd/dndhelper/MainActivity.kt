@@ -45,6 +45,13 @@ class MainActivity : AppCompatActivity() {
 					false
 				}
 			}
+			primaryItem("Magic Circle") {
+				icon = R.drawable.sword
+				onClick { _ ->
+					startActivity(Intent(context, MagicCircle::class.java))
+					false
+				}
+			}
 		}
 		_toolbar.setNavigationOnClickListener {
 			drawer.openDrawer()
@@ -119,7 +126,7 @@ class MainActivity : AppCompatActivity() {
 
 }
 
-class CharacterItem(var context: Context, var char: Character) : Item<ViewHolder>() {
+private class CharacterItem(var context: Context, var char: Character) : Item<ViewHolder>() {
 	companion object {
 		var readyCount = 0
 	}
